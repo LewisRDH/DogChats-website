@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DogChats - English Classes for Your Dog!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .brand-font {
+            font-family: 'Pacifico', cursive;
+        }
+        .hero-bg {
+            background-image: linear-gradient(to right bottom, #fde68a, #fca5a5, #fda4af); /* Playful gradient */
+        }
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .paw-print-bg {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 24 24' fill='%23FBBF24' opacity='0.1'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 13c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm-7 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5-7c-.83 0-1.5-.67-1.5-1.5S11.17 5 12 5s1.5.67 1.5 1.5S12.83 8 12 8zm-3.5 3.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'/%3E%3C/svg%3E");
+        }
+         /* Custom modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 50; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 500px;
+            border-radius: 0.5rem;
+            text-align: center;
+        }
+        .modal-close-button {
+            background-color: #fca5a5; /* Light red */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .modal-close-button:hover {
+            background-color: #f87171; /* Darker red */
+        }
+        /* Additional style for mobile menu to prevent content shift */
+        #mobile-menu.hidden + header, #mobile-menu.hidden + main {
+            margin-top: 0;
+        }
+        #mobile-menu:not(.hidden) {
+            /* Adjust if nav height changes */
+            /* position: absolute; top: 60px; left:0; right:0; */
+        }
+
+    </style>
+</head>
+<body class="bg-yellow-50 text-gray-800 paw-print-bg">
+
+    <nav class="bg-white shadow-md sticky top-0 z-40">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#" class="flex items-center space-x-2">
+                    <svg class="h-10 w-10 text-yellow-500" viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 5C25.16 5 5 25.16 5 50C5 74.84 25.16 95 50 95C74.84 95 95 74.84 95 50C95 25.16 74.84 5 50 5ZM72.5 55H65C62.24 55 60 52.76 60 50C60 47.24 62.24 45 65 45H72.5C73.88 45 75 46.12 75 47.5V52.5C75 53.88 73.88 55 72.5 55ZM35 55H27.5C26.12 55 25 53.88 25 52.5V47.5C25 46.12 26.12 45 27.5 45H35C37.76 45 40 47.24 40 50C40 52.76 37.76 55 35 55Z M62 70.83C60.67 71.59 59.16 72.16 57.5 72.5C57.5 72.5 57.5 72.5 57.5 72.5C55.26 73.17 52.69 73.5 50 73.5C47.31 73.5 44.74 73.17 42.5 72.5C40.84 72.16 39.33 71.59 38 70.83C36.81 70.17 35.83 69.28 35.14 68.21C34.44 67.13 34.06 65.9 34.03 64.62C34 63.08 34.68 61.63 35.89 60.61L43.46 54.11C44.05 53.61 44.77 53.25 45.54 53.07C46.13 52.93 46.74 52.86 47.35 52.86H52.65C53.26 52.86 53.87 52.93 54.46 53.07C55.23 53.25 55.95 53.61 56.54 54.11L64.11 60.61C65.32 61.63 66 63.08 65.97 64.62C65.94 65.9 65.56 67.13 64.86 68.21C64.17 69.28 63.19 70.17 62 70.83Z M50 20C52.76 20 55 22.24 55 25C55 27.76 52.76 30 50 30C47.24 30 45 27.76 45 25C45 22.24 47.24 20 50 20Z" />
+                        <path d="M60 35C60 32.24 57.76 30 55 30H45C42.24 30 40 32.24 40 35V40H60V35Z" fill="#FFF"/> <ellipse cx="30" cy="32" rx="4" ry="5" fill="#FFF"/> <ellipse cx="40" cy="25" rx="4" ry="5" fill="#FFF"/> <ellipse cx="50" cy="22" rx="4" ry="5" fill="#FFF"/> <ellipse cx="60" cy="25" rx="4" ry="5" fill="#FFF"/> <ellipse cx="70" cy="32" rx="4" ry="5" fill="#FFF"/> </svg>
+                    <span class="brand-font text-3xl text-yellow-500">DogChats</span>
+                </a>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-yellow-600 focus:outline-none focus:text-yellow-600">
+                        <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="hidden md:flex space-x-4 items-center">
+                    <a href="#about" class="text-gray-600 hover:text-yellow-600 transition duration-300">About Us</a>
+                    <a href="#services" class="text-gray-600 hover:text-yellow-600 transition duration-300">Our Lessons</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-yellow-600 transition duration-300">Pricing</a>
+                    <a href="#contact" id="navBookNowBtn" class="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-300">Book Now!</a>
+                </div>
+            </div>
+            <div id="mobile-menu" class="md:hidden hidden bg-white py-2">
+                <a href="#about" class="block px-4 py-2 text-sm text-gray-600 hover:bg-yellow-100 hover:text-yellow-600 transition duration-300">About Us</a>
+                <a href="#services" class="block px-4 py-2 text-sm text-gray-600 hover:bg-yellow-100 hover:text-yellow-600 transition duration-300">Our Lessons</a>
+                <a href="#pricing" class="block px-4 py-2 text-sm text-gray-600 hover:bg-yellow-100 hover:text-yellow-600 transition duration-300">Pricing</a>
+                <a href="#contact" id="mobileNavBookNowBtn" class="block px-4 py-2 text-sm text-white bg-yellow-500 hover:bg-yellow-600 rounded-md mx-2 my-1 text-center font-semibold transition duration-300">Book Now!</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <header id="home" class="hero-bg text-white py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 section-title">Is Your Dog Ready to <span class="brand-font text-yellow-300">Chat</span>?</h1>
+                <p class="text-lg md:text-2xl mb-8 max-w-2xl mx-auto">Unlock your furry friend's hidden linguistic talents with DogChats – the revolutionary English classes designed exclusively for dogs!</p>
+                <a href="#pricing" class="bg-white text-yellow-600 font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-yellow-100 transition duration-300 text-lg">Discover Our Lessons</a>
+            </div>
+        </header>
+
+        <section id="about" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 section-title">Welcome to <span class="brand-font text-yellow-500">DogChats</span>!</h2>
+                    <p class="text-gray-600 mt-4 max-w-xl mx-auto">Ever wondered what your dog is *really* trying to tell you? At DogChats, we believe every bark, woof, and tail wag holds a conversation waiting to happen. Our unique approach to canine education aims to bridge the communication gap, one English word at a time!</p>
+                </div>
+                <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="md:w-1/2">
+                        <img src="https://placehold.co/600x400/FBBF24/FFFFFF?text=Happy+Dog+Learning&font=Poppins" alt="Happy dog with a graduation cap" class="rounded-lg shadow-xl w-full h-auto object-cover" onerror="this.src='https://placehold.co/600x400/FBBF24/333333?text=Image+Not+Found'">
+                    </div>
+                    <div class="md:w-1/2 text-gray-700 space-y-4">
+                        <h3 class="text-2xl font-semibold text-yellow-600">Why Teach Your Dog English?</h3>
+                        <p>Imagine the possibilities: ordering their own treats, telling you about their day at the park, or even helping with your crossword puzzles! (Okay, maybe not the crossword puzzles... yet!)</p>
+                        <p>Our classes are designed to be fun, engaging, and rewarding for your canine companion. We use positive reinforcement techniques and a curriculum developed by leading (imaginary) dog linguists.</p>
+                        <ul class="list-disc list-inside space-y-2 text-yellow-700">
+                            <li><span class="text-gray-700">Strengthen your bond.</span></li>
+                            <li><span class="text-gray-700">Impress your friends and family.</span></li>
+                            <li><span class="text-gray-700">Unlock a new level of understanding.</span></li>
+                            <li><span class="text-gray-700">It's just pawsitively fun!</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="py-16 md:py-24 bg-yellow-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 section-title">What's in a <span class="brand-font text-yellow-500">DogChats</span> Lesson?</h2>
+                    <p class="text-gray-600 mt-4 max-w-xl mx-auto">Each session is packed with tail-wagging goodness and brain-boosting activities.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover transition duration-300">
+                        <div class="text-yellow-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v11.494m0 0A8.991 8.991 0 0012 21a8.991 8.991 0 000-17.494m0 17.494c-.253.013-.506.02-.76.02A8.991 8.991 0 013.25 12a8.99 8.99 0 018.008-8.726M12 6.253c.253-.013.506-.02.76-.02A8.991 8.991 0 0120.75 12a8.99 8.99 0 01-8.008 8.726" />
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">45 Mins of Dog English</h3>
+                        <p class="text-gray-600">Our expert tutors will guide your dog through vocabulary, basic grammar, and polite conversation starters (like "May I have a treat, please?").</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover transition duration-300">
+                         <div class="text-yellow-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                               <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /> <path stroke-linecap="round" stroke-linejoin="round" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" /> </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Delicious Doggy Treats</h3>
+                        <p class="text-gray-600">Learning is hungry work! We provide premium, tasty treats to keep motivation high and tails wagging. (Allergy-friendly options available!)</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-lg card-hover transition duration-300">
+                        <div class="text-yellow-500 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /> </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Guaranteed Doggy High Five</h3>
+                        <p class="text-gray-600">Every lesson concludes with a celebratory high five! It's our way of saying "Well done, clever pup!" and reinforcing a positive learning experience.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="pricing" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-800 section-title">Invest in Your Dog's Future (and Fun!)</h2>
+                </div>
+                <div class="max-w-md mx-auto bg-yellow-50 rounded-xl shadow-2xl p-8 md:p-12 text-center card-hover transition duration-300">
+                    <h3 class="brand-font text-4xl text-yellow-600 mb-4">Pawsome Package</h3>
+                    <p class="text-5xl font-bold text-gray-800 mb-2">€75</p>
+                    <p class="text-gray-600 mb-6">per 45-minute lesson</p>
+                    <ul class="text-left space-y-3 text-gray-700 mb-8">
+                        <li class="flex items-center">
+                            <svg class="w-6 h-6 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            45 minutes of engaging Dog English tuition
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-6 h-6 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            Premium doggy treats included
+                        </li>
+                        <li class="flex items-center">
+                            <svg class="w-6 h-6 text-yellow-500 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            A joyful doggy high five, every time!
+                        </li>
+                    </ul>
+                    <button id="bookNowBtnPricing" class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg shadow-md transition duration-300 text-lg">Book a Lesson Today!</button>
+                    <p class="text-xs text-gray-500 mt-6">* We cannot guarantee your dog will speak English at any stage after taking this course. But they'll sure have fun trying!</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24 hero-bg">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white section-title mb-6">Ready to Unleash the Chatterbox Within?</h2>
+                <p class="text-white text-lg md:text-xl mb-8 max-w-xl mx-auto">Spaces are limited as our tutors only have so many hands for high fives! Book your dog's first English lesson today and embark on an unforgettable journey.</p>
+                <button id="bookNowBtnContact" class="bg-white text-yellow-600 font-bold py-4 px-10 rounded-lg shadow-xl hover:bg-yellow-100 transition duration-300 text-xl">Get Started Now!</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-12 text-center">
+        <div class="container mx-auto px-6">
+            <p class="brand-font text-3xl text-yellow-500 mb-4">DogChats</p>
+            <p class="mb-2">&copy; <span id="currentYear"></span> DogChats. All Paws Reserved.</p>
+            <p class="text-sm text-gray-500">Where every woof is a word in the making!</p>
+            <p class="text-xs text-gray-500 mt-4">
+                Disclaimer: DogChats is a fictional service for demonstration purposes.
+                While we love dogs, we can't actually teach them to speak English (as much as we wish we could!).
+            </p>
+        </div>
+    </footer>
+
+    <div id="bookingModal" class="modal">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-xl">
+            <h3 class="text-2xl font-bold text-yellow-500 brand-font mb-4">Booking Confirmed (Almost!)</h3>
+            <p class="text-gray-700 mb-4">Thank you for your interest in DogChats! While this is a demo site and we can't *actually* book your pup in, we appreciate you playing along!</p>
+            <p class="text-gray-600 mb-6">Imagine your dog saying "Thank you for the lesson!" soon!</p>
+            <button id="closeModalBtn" class="modal-close-button">Awesome!</button>
+        </div>
+    </div>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Modal functionality
+        const bookingModal = document.getElementById('bookingModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        // Updated selectors for Book Now buttons to be more specific
+        const navBookNowBtn = document.getElementById('navBookNowBtn');
+        const mobileNavBookNowBtn = document.getElementById('mobileNavBookNowBtn');
+        const bookNowPricing = document.getElementById('bookNowBtnPricing');
+        const bookNowContact = document.getElementById('bookNowBtnContact');
+
+        function openModal() {
+            if (bookingModal) bookingModal.style.display = 'block';
+        }
+
+        function closeModal() {
+            if (bookingModal) bookingModal.style.display = 'none';
+        }
+
+        // Event listeners for opening modal
+        if (navBookNowBtn) navBookNowBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent jump for this specific button
+            openModal();
+        });
+        if (mobileNavBookNowBtn) mobileNavBookNowBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openModal();
+            mobileMenu.classList.add('hidden'); // Close mobile menu after click
+        });
+        if (bookNowPricing) bookNowPricing.addEventListener('click', openModal);
+        if (bookNowContact) bookNowContact.addEventListener('click', openModal);
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+
+
+        // Close modal if user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == bookingModal) {
+                closeModal();
+            }
+        }
+
+        // Smooth scroll for internal links & close mobile menu on link click
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const isModalButton = this.id?.includes('BookNowBtn') || (this.getAttribute('href') === '#contact' && (this.id === 'navBookNowBtn' || this.id === 'mobileNavBookNowBtn'));
+                const isMobileNavLink = this.parentElement === mobileMenu || this.parentElement.parentElement === mobileMenu;
+
+
+                if (isModalButton) {
+                    // Modal buttons are handled by their specific listeners above
+                    // No default prevention here as those listeners handle it.
+                } else {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+
+                // If it's a link within the mobile menu (and not the "Book Now" button which opens a modal)
+                // or any link that causes a scroll, close the mobile menu.
+                if (mobileMenu && !mobileMenu.classList.contains('hidden') && (isMobileNavLink || !isModalButton) ) {
+                     if(this.id !== 'mobileNavBookNowBtn') { // Don't close for modal button itself, its handler does.
+                        mobileMenu.classList.add('hidden');
+                     }
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
